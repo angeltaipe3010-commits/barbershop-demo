@@ -1,0 +1,30 @@
+# Dependencias y compilados
+node_modules
+dist
+dist-ssr
+dev-dist
+
+# Entorno — nunca subir credenciales
+.env
+.env.*
+!.env.example
+*.local
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Logs y temporales
+npm-debug.log*
+yarn-error.log*
+vite-dev.log
+_*.mjs
+
+# Copias comprimidas del propio proyecto: no tienen por qué versionarse.
+*.zip
+
+# Supabase CLI
+supabase/.temp
+supabase/.branches

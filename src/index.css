@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  :root {
+    color-scheme: dark;
+    /* Escalonado de la animación de aparición. Un elemento anuncia su posición
+       con `--i` y hereda este retardo por índice. */
+    --paso: 55ms;
+    --tope-paso: 10;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-1000 font-sans text-ink-100 antialiased;
+    /* Textura de puntos + halo de marca arriba: profundidad sin ruido. */
+    background-image: theme('backgroundImage.grid-sutil');
+    background-size: 32px 32px;
+    background-attachment: fixed;
+  }
+
+  /* Tipografía de titulares: el display va en versalitas anchas. */
+  h1,
+  h2,
+  h3 {
+    @apply text-ink-50;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Foco visible y coherente en toda la app (accesibilidad). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-marca-500/70 ring-offset-2 ring-offset-ink-1000;
+  }
+
+  /* Scrollbar discreta */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-transparent bg-ink-700 bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-600 bg-clip-content;
+  }
+
+  /* Los date/time pickers nativos en tema oscuro */
+  input[type='date'],
+  input[type='time'],
+  input[type='datetime-local'] {
+    color-scheme: dark;
+  }
+
+  /* Quita las flechas de los number inputs: en un POS estorban. */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  /* Autofill de Chrome sobre fondo oscuro */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: theme('colors.ink.50');
+    -webkit-box-shadow: 0 0 0 1000px theme('colors.ink.900') inset;
+    caret-color: theme('colors.ink.50');
+    transition: background-color 9999s ease-out;
+  }
+
+  ::selection {
+    @apply bg-marca-600/40 text-white;
+  }
+}
+
+/* ==========================================================================
+   Componentes
+   ========================================================================== */
+@layer components {
+  /* ---- Superficies ------------------------------------------------------ */
+  .panel {
+    @apply relative rounded-xl2 border border-ink-800/80 bg-ink-900/70 shadow-panel
+           backdrop-blur-sm;
+  }
+
+  /* Brillo de 1px en el borde superior: separa la tarjeta del fondo. */
+  .panel::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px
+           bg-gradient-to-r from-transparent via-white/[0.12] to-transparent;
+  }
+
+  /* Tarjeta que responde al puntero. */
+  .panel-interactivo {
+    @apply panel transition-all duration-media ease-salida
+           hover:-translate-y-0.5 hover:border-ink-700 hover:shadow-elevado;
+  }
+
+  /* ---- Acentos de marca ------------------------------------------------- */
+  .barber-divider {
+    @apply h-[3px] w-full rounded-full bg-barber-pole opacity-70;
+  }
+  .barber-accent {
+    @apply bg-barber-pole;
+  }
+
+  /* ---- Botones ---------------------------------------------------------- */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 whitespace-nowrap
+           rounded-lg px-4 py-2.5 text-sm font-semibold
+           transition-all duration-rapida ease-salida
+           active:scale-[0.97]
+           disabled:pointer-events-none disabled:opacity-45;
+  }
+
+  .btn-marca {
+    @apply btn bg-marca-600 text-white shadow-marca-sm
+           hover:bg-marca-500 hover:shadow-marca;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink-700 bg-ink-900/60 text-ink-200
+           hover:border-ink-600 hover:bg-ink-800 hover:text-white;
+  }
+
+  .btn-sutil {
+    @apply btn text-ink-300 hover:bg-ink-800/80 hover:text-white;
+  }
+
+  .btn-peligro {
+    @apply btn border border-peligro/40 bg-peligro/10 text-peligro
+           hover:border-peligro/60 hover:bg-peligro/20;
+  }
+
+  /* ---- Formularios ------------------------------------------------------ */
+  .input-base {
+    @apply w-full rounded-lg border border-ink-700/80 bg-ink-900/80 px-3.5 py-2.5
+           text-sm text-ink-50 shadow-inner shadow-black/20
+           transition-colors duration-rapida
+           placeholder:text-ink-500
+           hover:border-ink-600
+           focus:border-marca-500 focus:outline-none focus:ring-1 focus:ring-marca-500/60;
+  }
+
+  .etiqueta-campo {
+    @apply mb-1.5 block text-sm font-medium text-ink-300;
+  }
+
+  /* ---- Badges ----------------------------------------------------------- */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
+           text-xs font-semibold leading-none ring-1 ring-inset;
+  }
+
+  /* ---- Tablas ----------------------------------------------------------- */
+  .tabla {
+    @apply w-full text-sm;
+  }
+  .tabla thead th {
+    @apply whitespace-nowrap px-4 py-3 text-left text-etiqueta font-semibold
+           uppercase text-ink-500;
+  }
+  .tabla tbody tr {
+    @apply border-t border-ink-800/70 transition-colors duration-rapida
+           hover:bg-ink-800/40;
+  }
+  .tabla tbody td {
+    @apply px-4 py-3 text-ink-200;
+  }
+
+  /* ---- Encabezado de sección ------------------------------------------- */
+  .titulo-vista {
+    @apply font-display text-display-md tracking-wide text-white;
+  }
+}
+
+/* ==========================================================================
+   Utilidades — movimiento
+   ========================================================================== */
+@layer utilities {
+  /* Aparición escalonada. Se aplica al contenedor: cada hijo directo entra
+     con un retardo creciente. Ideal para listas y rejillas de tarjetas. */
+  .escalonar > * {
+    animation: aparecer 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .escalonar > *:nth-child(1)  { animation-delay: calc(var(--paso) * 0); }
+  .escalonar > *:nth-child(2)  { animation-delay: calc(var(--paso) * 1); }
+  .escalonar > *:nth-child(3)  { animation-delay: calc(var(--paso) * 2); }
+  .escalonar > *:nth-child(4)  { animation-delay: calc(var(--paso) * 3); }
+  .escalonar > *:nth-child(5)  { animation-delay: calc(var(--paso) * 4); }
+  .escalonar > *:nth-child(6)  { animation-delay: calc(var(--paso) * 5); }
+  .escalonar > *:nth-child(7)  { animation-delay: calc(var(--paso) * 6); }
+  .escalonar > *:nth-child(8)  { animation-delay: calc(var(--paso) * 7); }
+  .escalonar > *:nth-child(9)  { animation-delay: calc(var(--paso) * 8); }
+  .escalonar > *:nth-child(10) { animation-delay: calc(var(--paso) * 9); }
+  /* A partir del 11º todos entran a la vez: escalonar de más se siente lento. */
+  .escalonar > *:nth-child(n + 11) {
+    animation-delay: calc(var(--paso) * var(--tope-paso));
+  }
+
+  /* Retardo manual por índice: style={{ '--i': n }} */
+  .retardo-i {
+    animation-delay: calc(var(--paso) * var(--i, 0));
+  }
+
+  /* Superficie que se eleva al pasar el puntero. */
+  .elevar {
+    @apply transition-transform duration-media ease-salida hover:-translate-y-0.5;
+  }
+
+  /* Brillo de carga para skeletons. */
+  .esqueleto {
+    @apply relative overflow-hidden rounded-md bg-ink-800/70;
+  }
+  .esqueleto::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full
+           bg-gradient-to-r from-transparent via-white/[0.06] to-transparent;
+    animation: brillo 1.6s infinite;
+  }
+
+  /* Números tabulares: evita que los importes "bailen" al actualizarse. */
+  .cifras {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+}
+
+/* ==========================================================================
+   Accesibilidad — respeta la preferencia de movimiento reducido
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* El contenido sigue apareciendo (nunca queda invisible), pero sin
+     desplazamiento ni escalonado. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .escalonar > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

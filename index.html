@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-PE" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>El Negrote Barber Shop · CRM</title>
+    <meta
+      name="description"
+      content="Sistema interno de gestión de la barbería: agenda, punto de venta, caja, inventario y comisiones."
+    />
+    <!-- Uso interno: no debe aparecer en buscadores. -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#08080a" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Negrote CRM" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Fondo pintado antes de que cargue el CSS: evita el destello blanco
+         entre el HTML y el primer render de React. */
+      html, body { background-color: #08080a; }
+      #root:empty::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: #08080a;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <noscript>
+      <div style="padding:2rem;font-family:system-ui;color:#eeeef0;text-align:center">
+        Este sistema necesita JavaScript activado para funcionar.
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
