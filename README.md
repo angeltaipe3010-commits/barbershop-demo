@@ -127,6 +127,20 @@ trae el rewrite de SPA, las cabeceras de seguridad y la política de caché.
 - **Producción**: añade `VITE_DEMO=false`, `VITE_SUPABASE_URL` y
   `VITE_SUPABASE_ANON_KEY`.
 
+#### Sobre la cabecera `Content-Security-Policy`
+
+`vercel.json` es JSON estricto: su esquema solo admite `key` y `value` dentro de
+`headers`, así que la política no se puede comentar ahí. Queda explicada aquí:
+
+| Directiva | Por qué |
+|---|---|
+| `script-src 'self' 'wasm-unsafe-eval'` | Lo mínimo para instanciar el módulo WebAssembly de SQLite. **No** habilita `eval()` de JavaScript. |
+| `connect-src … *.supabase.co` | API, Auth, Storage y Realtime (este último por `wss:`). Solo se usa en modo producción. |
+| `img-src … data: blob:` | Las fotos que se suben en modo demo se guardan como `data:` URI. |
+| `frame-ancestors 'none'` | Impide que la app se embeba en un iframe (clickjacking). |
+
+Si cambias de proveedor, ajusta los dominios de `connect-src`.
+
 ---
 
 ## 🧪 Cómo funciona el modo demo

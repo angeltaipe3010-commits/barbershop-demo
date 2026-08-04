@@ -16,7 +16,6 @@
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
         {
-          "comment": "Defensa en profundidad contra XSS: limita de dónde puede cargar la app. connect-src abarca Supabase (API, Auth, Storage y Realtime por wss). 'wasm-unsafe-eval' es lo mínimo para instanciar el SQLite del modo demo: NO habilita eval() de JavaScript. Ajusta los dominios si cambias de proveedor.",
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
         }
