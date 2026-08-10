@@ -1,5 +1,5 @@
 -- ============================================================================
---  EL NEGROTE BARBER SHOP — CRM Interno
+--  DEMO BARBERSHOP — CRM Interno
 --  Esquema de Base de Datos (PostgreSQL / Supabase)
 -- ----------------------------------------------------------------------------
 --  Ejecuta este script en el SQL Editor de Supabase.

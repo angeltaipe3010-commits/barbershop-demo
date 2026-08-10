@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
 //  Isotipo + logotipo. Nombre y logo salen de la configuración del negocio,
-//  con "El Negrote Barber Shop" por defecto.
+//  con "Demo Barbershop" por defecto.
 // ----------------------------------------------------------------------------
 export default function Logo({
   compacto = false,
-  nombre = 'El Negrote Barber Shop',
+  nombre = 'Demo Barbershop',
   logoUrl = null,
   tamano = 'md',
 }) {

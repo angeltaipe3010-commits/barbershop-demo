@@ -1,5 +1,5 @@
-﻿-- ============================================================================
---  EL NEGROTE BARBER SHOP — DATOS DE DEMOSTRACIÓN
+-- ============================================================================
+--  DEMO BARBERSHOP — DATOS DE DEMOSTRACIÓN
 -- ----------------------------------------------------------------------------
 --  Deja la base lista para enseñar el sistema funcionando: usuarios con los
 --  que entrar, catálogo, clientes y ~3 meses de operación real simulada
@@ -153,7 +153,7 @@ end $$;
 --  3. Configuración del negocio
 -- ----------------------------------------------------------------------------
 insert into public.configuracion (id, nombre_negocio, direccion, telefono, hora_corte_turno)
-values (1, 'El Negrote Barber Shop', 'Av. Los Olivos 458, Lima', '987 654 321', 14)
+values (1, 'Demo Barbershop', 'Av. Los Olivos 458, Lima', '987 654 321', 14)
 on conflict (id) do update
    set nombre_negocio   = excluded.nombre_negocio,
        direccion        = excluded.direccion,

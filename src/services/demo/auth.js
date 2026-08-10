@@ -12,7 +12,7 @@
 import { ejecutar, filas, uuid } from './motor'
 import { fijarSesion, sesionActual } from './sesion'
 
-const CLAVE_SESION = 'negrote-demo-sesion'
+const CLAVE_SESION = 'barbershop-demo-sesion'
 const DOMINIO = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'demo.com'
 
 const oyentes = new Set()

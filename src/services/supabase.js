@@ -30,7 +30,7 @@ export const esDemo = bandera === 'true' || (bandera === '' && !url && !anonKey)
 
 if (esDemo && bandera === '') {
   console.warn(
-    '[negrote] Sin credenciales de Supabase: arrancando en modo demo ' +
+    '[barbershop] Sin credenciales de Supabase: arrancando en modo demo ' +
       '(SQLite local en el navegador).',
   )
 }
@@ -54,10 +54,10 @@ function crearClienteReal() {
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
-      storageKey: 'negrote-crm-auth',
+      storageKey: 'barbershop-crm-auth',
     },
     global: {
-      headers: { 'x-aplicacion': 'negrote-crm' },
+      headers: { 'x-aplicacion': 'barbershop-crm' },
     },
   })
 }
@@ -90,7 +90,7 @@ export function clienteAltas() {
           autoRefreshToken: false,
           detectSessionInUrl: false,
         },
-        global: { headers: { 'x-aplicacion': 'negrote-crm-altas' } },
+        global: { headers: { 'x-aplicacion': 'barbershop-crm-altas' } },
       },
     )
   }

@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'El Negrote Barber Shop · CRM',
-        short_name: 'Negrote CRM',
+        name: 'Demo Barbershop · CRM',
+        short_name: 'Demo Barbershop',
         description: 'CRM interno de barbería: agenda, punto de venta, caja y comisiones.',
         lang: 'es-PE',
         theme_color: '#e11d2e',

@@ -1,5 +1,5 @@
 -- ============================================================================
---  EL NEGROTE BARBER SHOP — INSTALACIÓN COMPLETA
+--  DEMO BARBERSHOP — INSTALACIÓN COMPLETA
 -- ----------------------------------------------------------------------------
 --  Este archivo deja la base de datos ENTERA lista de una sola ejecución.
 --  Equivale a `schema.sql` + todas las `migration_*.sql`, ya consolidadas y en
@@ -125,7 +125,7 @@ create index if not exists idx_citas_estado        on public.citas (estado);
 -- ---- Configuración del negocio (fila única) --------------------------------
 create table if not exists public.configuracion (
   id               int primary key default 1 check (id = 1),
-  nombre_negocio   text not null default 'El Negrote Barber Shop',
+  nombre_negocio   text not null default 'Demo Barbershop',
   direccion        text,
   telefono         text,
   hora_corte_turno int not null default 14 check (hora_corte_turno between 0 and 23),

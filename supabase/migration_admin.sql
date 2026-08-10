@@ -8,7 +8,7 @@ do $$ begin create type estado_caja as enum ('abierta','cerrada'); exception whe
 -- ---- Configuración del negocio (fila única) --------------------------------
 create table if not exists public.configuracion (
   id               int primary key default 1 check (id = 1),
-  nombre_negocio   text not null default 'El Negrote Barber Shop',
+  nombre_negocio   text not null default 'Demo Barbershop',
   direccion        text,
   telefono         text,
   hora_corte_turno int not null default 14 check (hora_corte_turno between 0 and 23),

@@ -2,7 +2,7 @@ import { supabase, clienteAltas } from '../supabase'
 
 // Dominio interno con el que se construye el email a partir del username.
 // Los usuarios nunca lo ven ni lo escriben.
-const DOMINIO_AUTH = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'elnegrote.com'
+const DOMINIO_AUTH = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'demo.com'
 
 // La Edge Function no está desplegada o no responde.
 const FUNCION_AUSENTE =

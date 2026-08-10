@@ -1,9 +1,9 @@
 {
-  "name": "el-negrote-barber-crm",
+  "name": "demo-barbershop-crm",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "CRM interno para El Negrote Barber Shop",
+  "description": "CRM interno para Demo Barbershop",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

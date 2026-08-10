@@ -56,7 +56,7 @@ mezclan con los de otra.
 
 ## 1. Crear el proyecto Supabase
 1. Entra a [supabase.com](https://supabase.com) → **New project**.
-2. Nombre: ej. `barberia-elnegrote`. Región: **South America (São Paulo)** (la más cercana a Perú).
+2. Nombre: ej. `demo-barbershop`. Región: **South America (São Paulo)** (la más cercana a Perú).
 3. Guarda la contraseña de la base de datos.
 4. El plan **Free** alcanza para empezar (500 MB, suficiente para una barbería pequeña por bastante tiempo).
 
@@ -115,7 +115,7 @@ Como aún no hay nadie, créalo desde el panel:
 
 > **Importante:** activa el dominio interno. En la app, el login arma el correo
 > como `usuario@DOMINIO`. Define ese dominio en el `.env` con
-> `VITE_AUTH_EMAIL_DOMAIN` (ej. `elnegrote.com`) y úsalo igual en el email del paso 2.
+> `VITE_AUTH_EMAIL_DOMAIN` (ej. `demo.com`) y úsalo igual en el email del paso 2.
 
 ## 5. Desplegar el frontend en Vercel
 1. Sube el código a un repositorio (GitHub) o usa el mismo repo para todas.
@@ -125,15 +125,15 @@ Como aún no hay nadie, créalo desde el panel:
    VITE_DEMO=false
    VITE_SUPABASE_URL=https://TU-PROYECTO.supabase.co
    VITE_SUPABASE_ANON_KEY=sb_publishable_...   (Project Settings → API)
-   VITE_AUTH_EMAIL_DOMAIN=elnegrote.com
+   VITE_AUTH_EMAIL_DOMAIN=demo.com
    VITE_LOCALE=es-PE
    VITE_CURRENCY=PEN
    ```
    > `VITE_DEMO=false` es importante: sin él, un despliegue al que le falten las
    > credenciales arrancaría con la base de demostración en vez de avisar del
    > fallo de configuración.
-4. Deploy. Te da una URL (ej. `barberia-elnegrote.vercel.app`).
-   - Opcional: conéctale un subdominio propio (`negrote.tudominio.com`).
+4. Deploy. Te da una URL (ej. `demo-barbershop.vercel.app`).
+   - Opcional: conéctale un subdominio propio (`barbershop.tudominio.com`).
 
 > Para cada barbería nueva: mismo repo, **otro proyecto en Vercel** con **otras
 > variables de entorno** (las de su Supabase).

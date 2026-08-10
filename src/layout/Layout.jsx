@@ -35,7 +35,7 @@ export default function Layout() {
   useEffect(() => {
     setMenuAbierto(false)
     window.scrollTo({ top: 0, behavior: 'instant' })
-    document.title = `${tituloDeRuta(pathname)} · El Negrote CRM`
+    document.title = `${tituloDeRuta(pathname)} · Demo Barbershop`
   }, [pathname])
 
   return (

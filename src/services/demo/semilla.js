@@ -115,7 +115,7 @@ async function sembrar() {
       `update configuracion
           set nombre_negocio = ?, direccion = ?, telefono = ?, hora_corte_turno = 14
         where id = 1`,
-      ['El Negrote Barber Shop', 'Av. Ejército 512, Arequipa', '(054) 25-4180'],
+      ['Demo Barbershop', 'Av. Ejército 512, Arequipa', '(054) 25-4180'],
     )
 
     // ---- Staff y credenciales ---------------------------------------------

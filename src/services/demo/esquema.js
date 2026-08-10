@@ -119,7 +119,7 @@ create index if not exists idx_citas_estado        on citas (estado);
 -- ---- Configuración del negocio (fila única) --------------------------------
 create table if not exists configuracion (
   id               integer primary key check (id = 1),
-  nombre_negocio   text not null default 'El Negrote Barber Shop',
+  nombre_negocio   text not null default 'Demo Barbershop',
   direccion        text,
   telefono         text,
   hora_corte_turno integer not null default 14 check (hora_corte_turno between 0 and 23),

@@ -12,7 +12,7 @@ import initSqlJs from 'sql.js'
 import wasmUrl from 'sql.js/dist/sql-wasm.wasm?url'
 import { ESQUEMA } from './esquema'
 
-const BD_NOMBRE = 'negrote-demo'
+const BD_NOMBRE = 'barbershop-demo'
 const ALMACEN = 'sqlite'
 const CLAVE = 'base'
 const PERIODO_GUARDADO = 400

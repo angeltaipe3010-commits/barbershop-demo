@@ -27,7 +27,7 @@ const VACIO = {
 }
 
 // Dominio con el que se arma el correo interno a partir del nombre de usuario.
-const DOMINIO = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'elnegrote.com'
+const DOMINIO = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'demo.com'
 
 // El campo pide un usuario, pero es natural teclear un correo. En vez de
 // fallar creando "juan@demo.com@demo.com", se queda con la parte de delante.

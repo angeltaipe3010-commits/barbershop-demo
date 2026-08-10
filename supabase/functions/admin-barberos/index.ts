@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     }
 
     const body = await req.json()
-    const DOM = body.dominio || 'elnegrote.com'
+    const DOM = body.dominio || 'demo.com'
 
     if (body.accion === 'crear') {
       const username = String(body.username || '').trim().toLowerCase()

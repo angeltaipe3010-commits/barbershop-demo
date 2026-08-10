@@ -9,7 +9,7 @@ import { fmtMoneda, fmtFecha, fmtHora, METODOS_PAGO } from '@/shared/lib/format'
  */
 export default function TicketModal({ ticket, onClose }) {
   const { config } = useAuth()
-  const negocio = config?.nombre_negocio || 'El Negrote Barber Shop'
+  const negocio = config?.nombre_negocio || 'Demo Barbershop'
   const metodo = METODOS_PAGO[ticket.metodo]?.label || ticket.metodo
 
   const lineas = ticket.filas.map((f) => ({

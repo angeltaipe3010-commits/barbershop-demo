@@ -25,7 +25,7 @@ export default function Login() {
   const [enviando, setEnviando] = useState(false)
 
   useEffect(() => {
-    document.title = 'Acceso · El Negrote CRM'
+    document.title = 'Acceso · Demo Barbershop'
   }, [])
 
   // Con sesión activa no tiene sentido el login: vuelve a donde iba.
@@ -87,7 +87,7 @@ export default function Login() {
           </div>
 
           <h1 className="text-center font-display text-2xl tracking-wide text-white">
-            El Negrote Barber Shop
+            Demo Barbershop
           </h1>
           <p className="mt-1 text-center text-sm text-ink-500">
             Sistema interno · uso exclusivo del personal

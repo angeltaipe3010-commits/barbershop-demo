@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 // ----------------------------------------------------------------------------
-//  Sistema de diseño — El Negrote Barber Shop
+//  Sistema de diseño — Demo Barbershop
 //  Todo el lenguaje visual (color, elevación, ritmo, movimiento) vive aquí.
 //  Las vistas no inventan valores: consumen estos tokens.
 // ----------------------------------------------------------------------------

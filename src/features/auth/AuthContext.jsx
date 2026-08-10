@@ -5,7 +5,7 @@ import { configApi } from '@/services/api'
 const AuthContext = createContext(null)
 
 // Dominio interno con el que se arma el email a partir del nombre de usuario.
-const DOMINIO_AUTH = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'elnegrote.com'
+const DOMINIO_AUTH = import.meta.env.VITE_AUTH_EMAIL_DOMAIN || 'demo.com'
 
 /**
  * Sesión de Supabase + perfil del staff + configuración del negocio.

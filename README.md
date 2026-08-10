@@ -1,4 +1,4 @@
-# 💈 El Negrote Barber Shop — CRM Interno
+# 💈 Demo Barbershop — CRM Interno
 
 Sistema de gestión integral de la barbería: agenda, clientes, punto de venta,
 caja diaria, inventario, gastos y liquidación de comisiones. Uso **estrictamente
