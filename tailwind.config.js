@@ -185,7 +185,7 @@ export default {
       zIndex: {
         sidebar: '40',
         topbar: '30',
-        overlay: '50',
+        overlay: '35', // entre la barra superior (30) y el menú lateral (40)
         modal: '60',
         toast: '70',
       },
