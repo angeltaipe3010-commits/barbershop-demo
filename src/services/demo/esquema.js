@@ -250,6 +250,12 @@ begin
                  end
    where id = new.producto_id;
 end;
+
+-- Datos internos de la demo (p. ej. la fecha en que se generó la semilla).
+create table if not exists demo_meta (
+  clave text primary key,
+  valor text
+);
 `
 
 // ---- Metadatos que el motor necesita para convertir tipos -------------------

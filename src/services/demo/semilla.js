@@ -1,15 +1,17 @@
 // ----------------------------------------------------------------------------
 //  Datos iniciales de la demo.
 //
-//  Se siembra una sola vez, la primera vez que se abre la app en el navegador.
-//  El objetivo es que quien entra desde un portafolio encuentre la barbería ya
-//  funcionando —dos meses de historial, agenda de hoy, inventario con un
-//  producto bajo mínimos— en vez de formularios vacíos.
+//  Se siembra la primera vez que se abre la app en el navegador y se vuelve a
+//  sembrar cuando se abre otro día. El objetivo es que quien entra desde un
+//  portafolio encuentre la barbería funcionando *hoy* —dos meses de historial
+//  que terminan en la fecha actual, ventas del día, agenda, inventario con un
+//  producto bajo mínimos— y no un panel en S/ 0.00 porque las ventas quedaron
+//  en el mes en que se visitó por primera vez.
 //
 //  Es la misma forma de datos que genera `datosApi.sembrarDemo`, escrita aquí
 //  aparte para no depender de la capa de API (que a su vez depende de esto).
 // ----------------------------------------------------------------------------
-import { enTransaccion, filas, uuid } from './motor'
+import { ejecutar, enTransaccion, filas, uuid } from './motor'
 import { aISOLocal } from '@/shared/lib/format'
 
 // Ids fijos: así la demo es reproducible y se pueden citar en el README.
@@ -78,20 +80,50 @@ function ponderado(items, pesos) {
   return items[0]
 }
 
-/** ¿La base ya tiene datos? Evita volver a sembrar en cada recarga. */
-async function yaSembrada() {
+const CLAVE_FECHA = 'sembrada_el'
+
+/**
+ * Siembra si la base está vacía o si se sembró otro día. Dentro del mismo día
+ * se respeta lo que el visitante haya registrado; al día siguiente la demo se
+ * renueva para que el historial siempre termine hoy.
+ */
+export async function sembrarSiHaceFalta() {
+  const hoy = aISOLocal(new Date())
   const [{ n }] = await filas('select count(*) as n from usuarios_barberos')
-  return n > 0
+  const [meta] = await filas('select valor from demo_meta where clave = ?', [CLAVE_FECHA])
+
+  if (n > 0 && meta?.valor === hoy) return false
+  if (n > 0) await vaciar()
+
+  await sembrar()
+  await ejecutar('insert or replace into demo_meta (clave, valor) values (?, ?)', [CLAVE_FECHA, hoy])
+  return true
 }
 
-export async function sembrarSiHaceFalta() {
-  if (await yaSembrada()) return false
-  await sembrar()
-  return true
+/** Borra los datos de la demo (no el esquema ni la fila de configuración). */
+async function vaciar() {
+  const tablas = (
+    await filas(
+      `select name from sqlite_master
+        where type = 'table' and name not like 'sqlite_%'
+          and name not in ('configuracion', 'demo_meta')`,
+    )
+  ).map((t) => t.name)
+
+  // Sin claves foráneas mientras se vacía: así el orden de borrado no importa.
+  await ejecutar('pragma foreign_keys = off')
+  try {
+    await enTransaccion((bd) => {
+      for (const t of tablas) bd.run(`delete from ${JSON.stringify(t)}`)
+    })
+  } finally {
+    await ejecutar('pragma foreign_keys = on')
+  }
 }
 
 async function sembrar() {
   const hoy = new Date()
+  const horaActual = hoy.getHours()
   const DIAS = 60
 
   // Catálogo con ids resueltos por adelantado: así las ventas pueden
@@ -190,7 +222,9 @@ async function sembrar() {
       const fecha = aISOLocal(dia)
       const diaSemana = dia.getDay()
 
-      if (diaSemana === 0) continue // domingo cerrado
+      // Domingo cerrado, salvo hoy: quien abre la demo un domingo también
+      // tiene que ver el panel del día con movimiento.
+      if (diaSemana === 0 && d !== 0) continue
 
       const cajaId = cajaPorFecha.get(fecha) ?? null
 
@@ -203,6 +237,8 @@ async function sembrar() {
         const s = ponderado(servicios, pesos)
         const c = elegir(clientes)
         const hora = entre(9, 20)
+        // Hoy solo hay ventas hasta la hora actual: nada cobrado en el futuro.
+        if (d === 0 && hora > horaActual) continue
         const turno = hora < 14 ? 'manana' : 'tarde_noche'
         const metodo = elegir([
           'efectivo', 'efectivo', 'efectivo',
@@ -238,7 +274,9 @@ async function sembrar() {
         }
       }
 
-      if (Math.random() < 0.45) {
+      // Hoy siempre hay un gasto registrado (si el local ya abrió), para que la
+      // vista de Gastos no salga vacía al entrar.
+      if (d === 0 ? horaActual >= 10 : Math.random() < 0.45) {
         bd.run(
           `insert into gastos (id, descripcion, categoria, monto, metodo_pago, fecha, caja_sesion_id, registrado_por)
            values (?,?, 'Operación', ?,?,?,?,?)`,

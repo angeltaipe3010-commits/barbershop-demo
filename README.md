@@ -22,8 +22,10 @@ otro. Todo lo demás —`services/api`, los hooks y las vistas— es idéntico y
 sabe cuál está usando.
 
 **El modo demo no necesita nada**: ni cuenta, ni servidor, ni credenciales. Al
-abrir la app por primera vez crea la base, la siembra con dos meses de
-operación y deja cuatro usuarios listos:
+abrir la app crea la base, la siembra con dos meses de operación que terminan
+**hoy** (con ventas del día hasta la hora actual) y deja cuatro usuarios listos.
+Si se vuelve a abrir otro día, la demo se renueva para que el historial siempre
+esté al día; dentro del mismo día se conserva lo que hayas registrado:
 
 | Usuario | Contraseña | Rol           |
 | ------- | ---------- | ------------- |

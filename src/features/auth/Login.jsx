@@ -8,8 +8,8 @@ import { Boton, Campo, Input } from '@/shared/ui'
 
 // Cuentas que siembra `services/demo/semilla.js`. Solo se muestran en demo.
 const ACCESOS_DEMO = [
-  { usuario: 'admin', etiqueta: 'Administrador', detalle: 'Ve todo el negocio' },
-  { usuario: 'juan', etiqueta: 'Barbero', detalle: 'Solo su agenda y comisiones' },
+  { usuario: 'admin', etiqueta: 'Administrador', detalle: 'Todo el negocio' },
+  { usuario: 'juan', etiqueta: 'Barbero', detalle: 'Su agenda y comisiones' },
 ]
 const PASSWORD_DEMO = 'demo1234'
 
@@ -90,10 +90,43 @@ export default function Login() {
             Demo Barbershop
           </h1>
           <p className="mt-1 text-center text-sm text-ink-500">
-            Sistema interno · uso exclusivo del personal
+            {esDemo ? 'Sistema de gestión de la barbería' : 'Sistema interno · uso exclusivo del personal'}
           </p>
 
           <BarberDivider className="my-6" />
+
+          {/* En la demo, entrar con un clic es la acción principal. */}
+          {esDemo && (
+            <>
+              <div className="grid grid-cols-2 gap-2">
+                {ACCESOS_DEMO.map((a) => (
+                  <button
+                    key={a.usuario}
+                    type="button"
+                    disabled={enviando}
+                    onClick={() => entrarComoDemo(a.usuario)}
+                    aria-label={`Entrar como ${a.etiqueta.toLowerCase()}`}
+                    className="group rounded-lg border border-ink-800 bg-ink-900/70 px-3 py-3 text-left
+                               transition-colors duration-rapida hover:border-marca-600/60 hover:bg-ink-800
+                               disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <span className="flex items-center justify-between text-sm font-medium text-white">
+                      {a.etiqueta}
+                      <svg viewBox="0 0 24 24" className="h-4 w-4 text-ink-500 transition-transform duration-rapida group-hover:translate-x-0.5 group-hover:text-white" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <span className="block text-xs text-ink-500">{a.detalle}</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="my-5 flex items-center gap-3 text-[11px] uppercase tracking-wider text-ink-600">
+                <span className="h-px flex-1 bg-ink-800" />o con tu usuario
+                <span className="h-px flex-1 bg-ink-800" />
+              </div>
+            </>
+          )}
 
           <form onSubmit={onSubmit} className="escalonar space-y-4">
             <Campo etiqueta="Usuario" requerido>
@@ -102,10 +135,10 @@ export default function Login() {
                   {...a11y}
                   type="text"
                   required
-                  autoFocus
+                  autoFocus={!esDemo}
                   value={usuario}
                   onChange={(e) => setUsuario(e.target.value)}
-                  placeholder="ej. juan"
+                  placeholder="Usuario"
                   autoComplete="username"
                   autoCapitalize="none"
                   spellCheck="false"
@@ -172,48 +205,19 @@ export default function Login() {
           </form>
 
           {esDemo && (
-            <div className="mt-6 rounded-xl2 border border-ink-800 bg-ink-950/60 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-ink-500">
-                Versión de demostración
-              </p>
-              <p className="mt-1.5 text-sm text-ink-400">
-                Los datos son ficticios y viven solo en este navegador. Entra con cualquiera
-                de los dos perfiles para ver qué cambia según el rol.
-              </p>
-
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {ACCESOS_DEMO.map((a) => (
-                  <button
-                    key={a.usuario}
-                    type="button"
-                    disabled={enviando}
-                    onClick={() => entrarComoDemo(a.usuario)}
-                    className="group rounded-lg border border-ink-800 bg-ink-900/70 px-3 py-2.5
-                               text-left transition-colors duration-rapida hover:border-marca-600/60
-                               hover:bg-ink-800 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <span className="block text-sm font-medium text-white">{a.etiqueta}</span>
-                    <span className="block text-xs text-ink-500">{a.detalle}</span>
-                  </button>
-                ))}
-              </div>
-
-              <p className="mt-3 text-[11px] text-ink-600">
-                Usuarios: <code className="text-ink-500">admin</code>,{' '}
-                <code className="text-ink-500">juan</code>,{' '}
-                <code className="text-ink-500">marco</code>,{' '}
-                <code className="text-ink-500">kevin</code> · contraseña{' '}
-                <code className="text-ink-500">{PASSWORD_DEMO}</code>
-              </p>
-            </div>
+            <p className="mt-4 text-center text-xs text-ink-600">
+              Prueba con <code className="text-ink-400">admin</code> o{' '}
+              <code className="text-ink-400">juan</code> · clave{' '}
+              <code className="text-ink-400">{PASSWORD_DEMO}</code> · datos ficticios
+            </p>
           )}
         </div>
 
-        <p className="mt-6 text-center text-xs text-ink-600">
-          {esDemo
-            ? 'Los cambios que hagas se guardan en tu navegador. Borra los datos del sitio para empezar de cero.'
-            : '¿Olvidaste tu contraseña? Pídele al administrador que la restablezca.'}
-        </p>
+        {!esDemo && (
+          <p className="mt-6 text-center text-xs text-ink-600">
+            ¿Olvidaste tu contraseña? Pídele al administrador que la restablezca.
+          </p>
+        )}
       </div>
     </div>
   )
