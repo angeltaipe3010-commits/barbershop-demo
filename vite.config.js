@@ -9,6 +9,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // El registro lo hace main.jsx (virtual:pwa-register) para poder recargar
+      // la página cuando llega una versión nueva.
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         name: 'Demo Barbershop · CRM',
@@ -36,6 +39,9 @@ export default defineConfig({
         // Las llamadas a Supabase NUNCA se cachean: los datos deben ser frescos.
         navigateFallbackDenylist: [/^\/api/],
         cleanupOutdatedCaches: true,
+        // La versión nueva toma el control al instante y main.jsx recarga la página.
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],

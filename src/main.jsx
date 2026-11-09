@@ -8,6 +8,12 @@ import { AuthProvider } from '@/features/auth/AuthContext'
 import { ConfirmProvider, ToastProvider } from '@/shared/ui'
 import { configuracionValida } from '@/services/supabase'
 import './index.css'
+import { registerSW } from 'virtual:pwa-register'
+
+// Con una versión nueva publicada, el service worker la instala en segundo
+// plano y la página se recarga sola: así nadie se queda con la versión vieja
+// guardada en el celular hasta abrir la app dos veces.
+registerSW({ immediate: true })
 
 const raiz = ReactDOM.createRoot(document.getElementById('root'))
 
